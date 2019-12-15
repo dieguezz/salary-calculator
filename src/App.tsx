@@ -2,24 +2,54 @@ import React, { useState } from "react";
 import "./App.scss";
 import logo from "./etereo-logo.png";
 import MaskedInput from "react-text-mask";
+import createNumberMask from "text-mask-addons/dist/createNumberMask";
+import axios from 'axios'
+import { useEffect } from "react";
+
+const numberMask = createNumberMask({
+  prefix: "",
+  suffix: " €",
+  thousandsSeparatorSymbol: ".",
+  allowLeadingZeroes: false,
+  decimalSymbol: ",",
+  allowDecimal: true
+});
 
 interface CalculatorData {
-  baseSalary: number;
+  baseSalary: string;
   totalPluses: number;
   contractType: string;
   contractDuration: string;
+}
+
+function fetchSalary(
+  baseSalary: number,
+  contractDuration: number,
+  contractType: number
+) {
+  return axios.get(
+    "https://europe-west2-finance-tools-5919b.cloudfunctions.net/salary",
+    {
+      params: {
+        base_salary: baseSalary,
+        contract_duration: contractDuration,
+        contract_type: contractType
+      }
+    }
+  );
 }
 
 function App() {
   const contractTypes = ["Completa", "Parcial"];
   const contractDurations = ["Indefinido", "Temporal"];
   const defaultState: CalculatorData = {
-    baseSalary: 0,
+    baseSalary: '1000',
     totalPluses: 0,
     contractType: contractTypes[0],
     contractDuration: contractDurations[0]
   };
   const [formState, setFormState] = useState(defaultState);
+  const [cost, setCost] = useState(0);
 
   function onChangeForm(e: any) {
     e.persist();
@@ -32,6 +62,17 @@ function App() {
   function onSubmitForm(e: any) {
     e.preventDefault();
   }
+
+  function getSalary() {
+    fetchSalary(formState.baseSalary.replace('.', '').replace('€', ''), formState.contractDuration === 'Indefinido' ? 0 : 1, formState.contractType === 'Partial' ? 1 : 0).then((res: any) => {
+      setCost(res.data.salary)
+    })
+  }
+
+  useEffect(() => {
+    getSalary()
+  }, [formState])
+
   return (
     <div className="salary-calculator">
       <header className="salary-calculator-header">
@@ -57,31 +98,21 @@ function App() {
           <div className="form-control">
             <label htmlFor="baseSalary">Base de cotización</label>
             <MaskedInput
-              mask={[
-                /[1-9]/,
-                /[1-9]/,
-                /[1-9]/,
-                ".",
-                /[1-9]/,
-                /[1-9]/,
-                /[1-9]/,
-                ",",
-                /\d/,
-                /\d/,
-              ]}
+              mask={numberMask}
               guide={false}
               type="text"
               name="baseSalary"
               id="baseSalary"
-              tabIndex={-1}
               autoFocus
               value={formState.baseSalary}
             />
           </div>
           <div className="form-control">
             <label htmlFor="totalPluses">Total pluses</label>
-            <input
-              type="number"
+            <MaskedInput
+              mask={numberMask}
+              guide={false}
+              type="text"
               name="totalPluses"
               id="totalPluses"
               value={formState.totalPluses}
@@ -111,7 +142,14 @@ function App() {
         <div className="salary-result">
           <div className="result-cost">
             <span>Coste Total para la empresa</span>
-            <span>25.367,23€</span>
+            <MaskedInput
+              mask={numberMask}
+              guide={false}
+              type="text"
+              name="baseSalary"
+              value={cost}
+              disabled
+            />{" "}
           </div>
           <div className="result-cost">
             <span>Coste Total para el trabajador</span>

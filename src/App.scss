@@ -70,6 +70,7 @@ $secondaryColor: white;
   margin: 8px;
   margin-left: 0;
   margin-top: 0;
+  min-width: 200px;
 
   span {
     display: block;
@@ -83,7 +84,8 @@ $secondaryColor: white;
     top: 4px;
     left: 4px;
   }
-  span:nth-child(2) {
+  span:nth-child(2), input {
+    border: 0;
     padding: 4px;
     padding-top: 24px;
     font-size: 32px;
