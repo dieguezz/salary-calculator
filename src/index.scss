@@ -1,0 +1,15 @@
+@import url("https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Teko:600&display=swap");
+
+* {
+  margin: 0;
+  font-family: "IBM Plex Mono", monospace;
+}
+
+body {
+  background: linear-gradient(
+    to right,
+    #2b5876,
+    #4e4376
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
