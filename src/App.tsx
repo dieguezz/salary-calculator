@@ -3,7 +3,7 @@ import "./App.scss";
 import logo from "./etereo-logo.png";
 import MaskedInput from "react-text-mask";
 import createNumberMask from "text-mask-addons/dist/createNumberMask";
-import axios from 'axios'
+import axios from "axios";
 import { useEffect } from "react";
 
 const numberMask = createNumberMask({
@@ -25,7 +25,8 @@ interface CalculatorData {
 function fetchSalary(
   baseSalary: number,
   contractDuration: number,
-  contractType: number
+  contractType: number,
+  totalPluses: number,
 ) {
   return axios.get(
     "https://europe-west2-finance-tools-5919b.cloudfunctions.net/salary",
@@ -33,7 +34,8 @@ function fetchSalary(
       params: {
         base_salary: baseSalary,
         contract_duration: contractDuration,
-        contract_type: contractType
+        contract_type: contractType,
+        pluses: totalPluses
       }
     }
   );
@@ -43,13 +45,14 @@ function App() {
   const contractTypes = ["Completa", "Parcial"];
   const contractDurations = ["Indefinido", "Temporal"];
   const defaultState: CalculatorData = {
-    baseSalary: '1000',
+    baseSalary: "1000",
     totalPluses: 0,
     contractType: contractTypes[0],
     contractDuration: contractDurations[0]
   };
   const [formState, setFormState] = useState(defaultState);
   const [cost, setCost] = useState(0);
+  const [isLoading, setIsloading] = useState(false);
 
   function onChangeForm(e: any) {
     e.persist();
@@ -64,14 +67,27 @@ function App() {
   }
 
   function getSalary() {
-    fetchSalary(formState.baseSalary.replace('.', '').replace('€', ''), formState.contractDuration === 'Indefinido' ? 0 : 1, formState.contractType === 'Partial' ? 1 : 0).then((res: any) => {
-      setCost(res.data.salary)
-    })
+    const number = parseFloat(
+      formState.baseSalary.replace(".", "").replace("€", "")
+    );
+    console.log(number)
+    if (isLoading || number < 400) return;
+    setIsloading(true);
+    fetchSalary(
+      number,
+      formState.contractDuration === "Indefinido" ? 1 : 0,
+      formState.contractType === "Partial" ? 1 : 0,
+      formState.totalPluses
+    ).then((res: any) => {
+      console.log(res.data)
+      setCost(res.data.totalCost.toString().replace('.', ','));
+      setIsloading(false);
+    });
   }
 
   useEffect(() => {
-    getSalary()
-  }, [formState])
+    getSalary();
+  }, [formState]);
 
   return (
     <div className="salary-calculator">
