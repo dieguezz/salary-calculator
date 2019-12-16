@@ -1,15 +1,34 @@
-@import url("https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap");
-@import url("https://fonts.googleapis.com/css?family=Teko:600&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Work+Sans:400,600");
 
+$primaryColor: #fff;
+$secondaryColor: #666; 
 * {
   margin: 0;
-  font-family: "IBM Plex Mono", monospace;
+  padding: 0;
+}
+
+html {
+  font-family: Work Sans, sans-serif;
+  font-size: 14px;
+  color: $secondaryColor;
+}
+
+input, select {
+    color: $secondaryColor;
+}
+
+ul {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
 }
 
 body {
-  background: linear-gradient(
-    to right,
-    #2b5876,
-    #4e4376
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background-color: #fbfbfb;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

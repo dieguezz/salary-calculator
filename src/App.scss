@@ -1,165 +1,149 @@
-@keyframes slide {
-  0% {
-    background-position-x: 100%;
-    background-position-y: 100%;
-    background-size: 100% 100%;
-  }
-  100% {
-    background-position-x: 0%;
-    background-position-y: 0%;
-    background-size: 20% 20%;
+$h2Color: #849eb3;
+$highlightColor: #108ee9;
+header {
+  padding: 16px;
+  .description {
+    color: #666;
   }
 }
-$primaryColor: #2b5876;
-$secondaryColor: white;
+
 .salary-calculator {
-  color: $secondaryColor;
-  display: flex;
-  flex-wrap: wrap;
-  // background: repeating-linear-gradient(to right, transparent 0 calc(50px - 1px), $secondaryColor1f calc(50px - 1px) 50px), repeating-linear-gradient(to bottom, transparent 0 calc(50px - 1px), $secondaryColor1f calc(50px - 1px) 50px) $primaryColor;
-  //   background-position-x: 0%;
-  //   background-position-y: 0%;
-  //   background-size: 50px 50px;
-  // animation: slide 50s infinite linear alternate;
-  .salary-calculator-header {
-    padding: 8px 16px;
-    font-family: "Teko", sans-serif;
-    .salary-calculator-title {
-      font-family: "Teko", sans-serif;
-    }
-    .salary-feedback {
-      margin-top: 16px;
-      font-size: 12px;
-      .etereo-link {
-        text-decoration: none;
-        color: $secondaryColor;
-      }
-    }
-  }
-  .salary-calculator-content {
-    display: flex;
-    flex-wrap: wrap;
-    flex: 1;
-    align-items: start;
-    justify-content: center;
-    padding: 16px;
-    .salary-form {
-      text-transform: uppercase;
-      display: flex;
-      flex-wrap: wrap;
-      flex: 1;
-      flex-direction: column;
-      align-items: start;
-      padding-right: 16px;
-    }
-    .salary-result {
-      display: flex;
-      flex-wrap: wrap;
-      flex: 1;
-      align-items: start;
-      padding: 4px;
-      padding-right: 12px;
-      justify-content: start;
-    }
-  }
-}
-.result-cost {
-  position: relative;
-  padding: 8px;
-  border: 4px solid $secondaryColor;
-  margin: 8px;
-  margin-left: 0;
-  margin-top: 0;
-  min-width: 200px;
-
-  span {
-    display: block;
-  }
-  span:first-child {
-    position: absolute;
-    font-size: 12px;
-    font-weight: bold;
-    text-transform: uppercase;
-    padding: 4px;
-    top: 4px;
-    left: 4px;
-  }
-  span:nth-child(2), input {
-    border: 0;
-    padding: 4px;
-    padding-top: 24px;
-    font-size: 32px;
-    font-weight: bold;
-  }
+  padding: 16px;
 }
 
-.cost-item {
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  span {
-    flex: 1;
-  }
-  input {
-    font-size: 12px;
-    flex: 1;
-  }
+.h1 {
+  font-size: 28px;
+  color: $highlightColor;
+  text-transform: uppercase;
+}
+.h2 {
+  font-size: 24px;
+  color: $h2Color;
+}
+h1,
+.h2 {
+  padding: 8px 0;
+  font-weight: 600;
+}
+
+input,
+select {
+  appearance: none;
+  border: 0;
+  background-color: transparent;
+  outline: none;
 }
 
 .form-control {
-  padding: 4px;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: start;
-  align-items: center;
-  width: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0 16px;
+
+  label,
+  input,
+  select {
+    flex: 1;
+  }
+
+  input,
+  select {
+    &.input {
+      font-size: 24px;
+      padding: 8px;
+      border: 1px solid #849eb3;
+      background-color: #ffffff;
+      border-radius: 4px;
+      color: #849eb3;
+      border-bottom: 4px solid #849eb3;
+      outline: 0;
+    }
+  }
 }
 
 label {
+  cursor: pointer;
+}
+
+.result {
+  padding: 16px;
+  text-transform: uppercase;
+}
+
+.total-cost {
+  background-color: $highlightColor;
+}
+
+.other-costs {
+  background-color: #849eb3;
+}
+.total-cost,
+.other-costs {
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 4px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  input {
+    color: white;
+    font-size: 32px;
+    font-weight: 600;
+    outline: 0;
+  }
+}
+
+.asterisc, .asterisc-small {
   font-size: 12px;
-  font-weight: bold;
-  background-color: $secondaryColor;
-  padding: 14px;
-  color: $primaryColor;
-  flex: 1;
-  min-width: 180px;
-  white-space: nowrap;
+  position: relative;
+  top: -10px;
 }
 
-input {
-  background-color: transparent;
-  border: 2px solid $secondaryColor;
-  color: $secondaryColor;
-  padding: 12px;
-  font-size: 16px;
-  flex: 1;
-  &:focus {
-    outline: auto;
-  }
-  &[type="number"] {
-    -moz-appearance: textfield;
-  }
-  &[type="number"]::-webkit-inner-spin-button {
-    appearance: none;
-  }
+.asterisc-small {
+  top: -4px;
 }
 
-select {
-  border-radius: 0;
-  font-size: 16px;
-  border: none;
-  background-color: transparent;
-  padding: 12px;
-  appearance: none;
-  border: 2px solid $secondaryColor;
-  color: $secondaryColor;
-  flex: 1;
-  &:focus {
-    outline: auto;
+.other-costs {
+  margin-top: 16px;
+  .cost-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 1px dashed white;
+    margin-bottom: 8px;
+    font-size: 14px;
+    span {
+      white-space: nowrap;
+      max-width: 100%;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      cursor: pointer;
+    }
+  }
+  input {
+    font-size: 14px;
+    text-align: right;
   }
 }
 
-.etereo-logo {
-  width: 100px;
+footer {
+  background-color: $highlightColor;
+  padding: 16px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0px 16px;
+  border-radius: 4px;
+  a {
+    color: white;
+  }
+
+  .salary-feedback {
+    max-width: 250px;
+  }
+  img {
+    width: 100px;
+  }
 }
