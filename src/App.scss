@@ -1,5 +1,5 @@
-$h2Color: #849eb3;
-$highlightColor: #108ee9;
+$h2Color: #5a7488;
+$highlightColor: #0a6fb7;
 header {
   padding: 16px;
   .description {
@@ -51,11 +51,11 @@ select {
     &.input {
       font-size: 24px;
       padding: 8px;
-      border: 1px solid #849eb3;
+      border: 1px solid $h2Color;
       background-color: #ffffff;
       border-radius: 4px;
-      color: #849eb3;
-      border-bottom: 4px solid #849eb3;
+      color: $h2Color;
+      border-bottom: 4px solid $h2Color;
       outline: 0;
     }
   }
@@ -75,7 +75,7 @@ label {
 }
 
 .other-costs {
-  background-color: #849eb3;
+  background-color: $h2Color;
 }
 .total-cost,
 .other-costs {
@@ -111,7 +111,7 @@ label {
     justify-content: space-between;
     align-items: flex-end;
     border-bottom: 1px dashed white;
-    margin-bottom: 8px;
+    margin-bottom: 16px;
     font-size: 14px;
     span {
       white-space: nowrap;

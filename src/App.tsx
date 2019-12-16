@@ -214,12 +214,13 @@ function App() {
         </form>
         <div className="result">
           <div className="total-cost">
-            <span>Coste Total para la empresa</span>
+            <label htmlFor="totalCost">Coste Total para la empresa</label>
             <MaskedInput
               mask={numberMask}
               guide={false}
               type="text"
               name="totalCost"
+              id="totalCost"
               value={cost}
               disabled
             />
@@ -227,14 +228,15 @@ function App() {
           <ul className="other-costs">
             {otherCosts.map((otherCost: any) => (
               <li className="cost-item" key={otherCost.name}>
-                <span onClick={() => toggleModal(otherCost.name)}>
+                <label htmlFor={otherCost.name} onClick={() => toggleModal(otherCost.name)}>
                   {otherCost.rate} {otherCost.name} <span className="asterisc-small">*</span>
-                </span>
+                </label>
                 <MaskedInput
                   mask={numberMask}
                   guide={false}
                   type="text"
                   name={otherCost.name}
+                  id={otherCost.name}
                   value={otherCost.total}
                   disabled
                 />
