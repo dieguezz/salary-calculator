@@ -52,6 +52,7 @@ function App() {
   };
   const [formState, setFormState] = useState(defaultState);
   const [cost, setCost] = useState(0);
+  const [otherCosts, setOtherCosts] = useState(0);
   const [isLoading, setIsloading] = useState(false);
 
   function onChangeForm(e: any) {
@@ -81,6 +82,7 @@ function App() {
     ).then((res: any) => {
       console.log(res.data)
       setCost(res.data.totalCost.toString().replace('.', ','));
+      setOtherCosts(res.data.detailedCosts)
       setIsloading(false);
     });
   }
@@ -162,14 +164,56 @@ function App() {
               mask={numberMask}
               guide={false}
               type="text"
-              name="baseSalary"
+              name="totalCost"
               value={cost}
               disabled
-            />{" "}
+            />
           </div>
-          <div className="result-cost">
-            <span>Coste Total para el trabajador</span>
-            <span>25.367,23€</span>
+          <div className="other-costs">
+            <div className="cost-item">
+              <span>Contingencias comunes</span>
+              <MaskedInput
+                mask={numberMask}
+                guide={false}
+                type="text"
+                name="common"
+                value={otherCosts.common}
+                disabled
+              />
+            </div>
+            <div className="cost-item">
+              <span>Desempleo</span>
+              <MaskedInput
+                mask={numberMask}
+                guide={false}
+                type="text"
+                name="unemployment"
+                value={otherCosts.unemployment}
+                disabled
+              />
+            </div>
+            <div className="cost-item">
+              <span>Formación profesional</span>
+              <MaskedInput
+                mask={numberMask}
+                guide={false}
+                type="text"
+                name="formation"
+                value={otherCosts.formation}
+                disabled
+              />
+            </div>
+            <div className="cost-item">
+              <span>Fogasa</span>
+              <MaskedInput
+                mask={numberMask}
+                guide={false}
+                type="text"
+                name="fogasa"
+                value={otherCosts.fogasa}
+                disabled
+              />
+            </div>
           </div>
         </div>
       </div>

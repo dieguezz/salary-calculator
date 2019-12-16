@@ -93,6 +93,20 @@ $secondaryColor: white;
   }
 }
 
+.cost-item {
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  span {
+    flex: 1;
+  }
+  input {
+    font-size: 12px;
+    flex: 1;
+  }
+}
+
 .form-control {
   padding: 4px;
   display: flex;
