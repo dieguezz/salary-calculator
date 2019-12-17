@@ -185,7 +185,8 @@ function App() {
               <MaskedInput
                 className="input"
                 mask={numberMask}
-                guide={false}
+                keepCharPositions={false}
+                guide={true}
                 type="text"
                 name="totalPluses"
                 id="totalPluses"

@@ -10,6 +10,8 @@
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.65);
   overflow: hidden;
+  animation: fade 150ms linear;
+
   .content {
     background-color: white;
     color: black;
@@ -22,4 +24,13 @@
       color: #666;
     }
   }
+}
+
+@keyframes fade {
+    0% {
+        opacity: 0
+    }
+    100% {
+        opacity: 100%;
+    }
 }
