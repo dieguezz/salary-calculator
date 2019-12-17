@@ -15,13 +15,22 @@
   .content {
     background-color: white;
     color: black;
-    padding: 16px;
+    padding: 32px;
     border-radius: 4px;
     margin: 32px;
+    max-width: 560px;
+
+    h2{
+      font-size: 21px;
+      font-weight: 600;
+      padding-bottom: 16px;
+    }
+
     p {
       font-size: 16px;
       line-height: 1.5em;
       color: #666;
+      padding-bottom: 16px;
     }
   }
 }

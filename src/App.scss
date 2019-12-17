@@ -1,0 +1,384 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap');
+
+$blue: #2a15b1;
+$cream: #FFF;
+$yellow: #f5b535;
+
+html, body{
+  background: whitesmoke;
+  font-family: 'Roboto', sans-serif;
+  height: 100%;
+}
+
+body{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @media all and (max-width: 1080px){
+    padding: 20px;
+  }
+
+  @media all and (max-width: 780px){
+    align-items: flex-start;
+  }
+
+  @media all and (max-height: 760px){
+    align-items: flex-start;
+  }
+
+  @media all and (max-width: 520px){
+    display: block;
+    padding: 0;
+  }
+}
+
+.salary-calculator{
+  animation: appear 1s 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  border-radius: 8px;
+  box-shadow: 0 8px 8px rgba(0,0,0,0.1);
+  display: flex;
+  margin: 0 auto;
+  max-width: 1080px;
+  opacity: 0;
+  transform: translateY(5%);
+  justify-content: space-between;
+  width: 100%;
+
+  @keyframes appear {
+    to{
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media all and (max-width: 1080px){
+    max-width: 960px;
+  }
+
+  @media all and (max-width: 780px){
+    flex-flow: column-reverse;
+  }
+
+  .banner{
+    background: $blue;
+    background: linear-gradient(-45deg, #2a15b1, #5815b1);
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    padding: 80px;
+    width: 60%;
+
+    @media all and (max-width: 1080px){
+      padding: 64px 72px;
+    }
+
+    @media all and (max-width: 960px){
+      padding: 56px 64px;
+    }
+
+    @media all and (max-width: 960px){
+      width: 55%;
+    }
+
+    @media all and (max-width: 880px){
+      padding: 40px;
+    }
+
+    @media all and (max-width: 780px){
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      border-bottom-left-radius: 8px;
+      border-bottom-right-radius: 8px;
+      padding: 24px;
+      width: 100%;
+    }
+
+    h1{
+      color: $cream;
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 16px;
+
+      @media all and (max-width: 1080px){
+        font-size: 42px;
+      }
+
+      @media all and (max-width: 960px){
+        font-size: 34px;
+      }
+
+      @media all and (max-width: 880px){
+        font-size: 28px;
+      }
+
+      @media all and (max-width: 780px){
+        display: none;
+      }
+    }
+
+    h2{
+      color: rgba($cream, 0.75);
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1.5;
+      margin-bottom: 40px;
+
+      @media all and (max-width: 780px){
+        display: none;
+      }
+    }
+
+    .result{
+      .total-cost{
+        border-bottom: 1px solid rgba(#FFF, 0.2);
+        display: flex;
+        flex-flow: column;
+        margin-bottom: 24px;
+        padding-bottom: 16px;
+
+        label{
+          color: rgba($cream, 0.75);
+          display: block;
+          font-size: 14px;
+          font-weight: 500;
+          margin-bottom: 8px;
+        }
+
+        input{
+          background: none;
+          border: none;
+          color: $cream;
+          font-size: 36px;
+          font-weight: 800;
+        }
+      }
+    }
+
+    .other-costs{
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+
+      .cost-item{
+        border-bottom: 1px solid rgba(#FFF, 0.25);
+        display: flex;
+        flex-flow: column;
+        margin-bottom: 24px;
+        padding-bottom: 16px;
+        padding-right: 32px;
+        width: 50%;
+
+        &:nth-of-type(even){
+          padding-right: 0;
+        }
+
+        label{
+          background: rgba(#FFF, 0.2);
+          border-radius: 3px;
+          color: #FFF;
+          cursor: help;
+          padding: 8px;
+          position: relative;
+          display: block;
+          font-size: 14px;
+          font-weight: 600;
+          margin-bottom: 8px;
+          width: fit-content;
+
+          &:after{
+            background: $yellow;
+            border-radius: 50%;
+            content: "i";
+            color: $blue;
+            display: inline-block;
+            font-family: serif;
+            font-style: italic;
+            font-weight: 900;
+            height: 16px;
+            margin-left: 8px;
+            position: absolute;
+            right: -24px;
+            text-align: center;
+            line-height: 16px;
+            width: 16px;
+          }
+        }
+
+        input{
+          background: none;
+          border: none;
+          color: $cream;
+          font-size: 28px;
+          font-weight: 800;
+        }
+      }
+    }
+  }
+
+  .calculator-content{
+    background: #FFF;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    padding: 80px 48px;
+    width: 40%;
+
+    @media all and (max-width: 1080px){
+      padding: 64px 40px;
+    }
+
+    @media all and (max-width: 960px){
+      padding: 56px 32px;
+      width: 45%;
+    }
+
+    @media all and (max-width: 880px){
+      padding: 40px 24px;
+    }
+
+    @media all and (max-width: 780px){
+      padding: 24px;
+    }
+
+    @media all and (max-width: 780px){
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      width: 100%;
+    }
+
+    header{
+      display: block;
+
+      h1{
+        color: #000;
+        font-size: 26px;
+        font-weight: 600;
+        line-height: 1.25;
+
+        &.mobile{
+          display: none;
+          font-size: 28px;
+          background: linear-gradient(-45deg, #2a15b1, #5815b1);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+
+        @media all and (max-width: 1080px){
+          font-size: 24px;
+        }
+
+        @media all and (max-width: 880px){
+          font-size: 21px;
+        }
+
+        @media all and (max-width: 780px){
+          &.desktop{
+            display: none;
+          }
+
+          &.mobile{
+            display: block;
+          }
+        }
+      }
+    }
+  }
+}
+
+.salary-form{
+  margin: 16px 0;
+
+  @media all and (max-width: 780px){
+    margin-bottom: 0;
+  }
+
+  .form-control{
+    align-items: center;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 0;
+    width: 100%;
+
+    label{
+      color: rgb(85, 85, 85);
+      font-size: 16px;
+      width: 60%;
+    }
+
+    input, select{
+      appearance: none;
+      background: none;
+      border: none;
+      border: 1px solid rgba(0,0,0,0.25);
+      border-radius: 24px;
+      color: #000;
+      font-size: 16px;
+      padding: 8px 16px;
+      width: 40%;
+
+      &:focus{
+        outline: none;
+      }
+    }
+
+    &.select{
+      position: relative;
+
+      &:after{
+        background: transparent;
+        border-right: 2px solid #000;
+        border-top: 2px solid #000;
+        content: "";
+        height: 8px;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-70%) rotate(135deg);
+        right: 16px;
+        user-select: none;
+        pointer-events: none;
+        width: 8px;
+      }
+    }
+
+    &:last-of-type{
+      border-bottom: 0;
+    }
+  }
+}
+
+.banner-info{
+  .salary-feedback{
+    text-align: center;
+    font-size: 16px;
+
+    a{
+      background: $yellow;
+      border-radius: 4px;
+      color: #000;
+      font-size: 18px;
+      font-weight: 500;
+      display: block;
+      margin-top: 16px;
+      padding: 16px;
+      text-align: center;
+      text-decoration: none;
+    }
+  }
+
+  @media all and (max-width: 780px){
+    span{
+      display: none;
+    }
+    a{
+      bottom: 10px;
+      position: fixed;
+      right: 10px;
+    }
+  }
+}

@@ -131,23 +131,51 @@ function App() {
   return (
     <div className="salary-calculator">
       <aside className="banner">
-        <img src={logo} className="etereo-logo" alt="etereo logo" />
-        <div className="banner-info">
-          <p className="description">
-            Calcula el coste que le supone a tu empresa contratar a un
-            trabajador en base a su salario bruto anual.
-          </p>
-          <p className="salary-feedback">
-            Si tienes dudas o sugerencias, escribe a{" "}
-            <a className="etereo-link" href="mailto:dev@etereo.io">
-              dev@etereo.io
-            </a>
-          </p>
-        </div>
+        {/*<img src={logo} className="etereo-logo" alt="etereo logo" />*/}
+        <h1>Calculadora del coste de un trabajador</h1>
+        <h2>Calcula el coste que le supone a tu empresa contratar a un
+            trabajador en base a su salario bruto anual.</h2>
+        <div className="result">
+            <div className="total-cost">
+              <label htmlFor="totalCost">Coste total para la empresa</label>
+              <MaskedInput
+                mask={numberMask}
+                guide={false}
+                type="text"
+                name="totalCost"
+                id="totalCost"
+                value={cost}
+                disabled
+              />
+            </div>
+            <ul className="other-costs">
+              {otherCosts.map((otherCost: any) => (
+                <li className="cost-item" key={otherCost.name}>
+                  <label
+                    htmlFor={otherCost.name}
+                    onClick={() => toggleModal(otherCost.name)}
+                  >
+                    {otherCost.rate} {otherCost.name}{" "}
+                    <span className="asterisc-small">*</span>
+                  </label>
+                  <MaskedInput
+                    mask={numberMask}
+                    guide={false}
+                    type="text"
+                    name={otherCost.name}
+                    id={otherCost.name}
+                    value={otherCost.total}
+                    disabled
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
       </aside>
-      <div>
+      <section className="calculator-content">
         <header>
-          <h1 className="h1">Calcular coste trabajador</h1>
+          <h1 className="h1 desktop">Rellena todos los campos en base al salario bruto anual</h1>
+          <h1 className="h1 mobile">Calculadora del coste de un trabajador</h1>
         </header>
         <div className="content">
           <form
@@ -193,7 +221,7 @@ function App() {
                 value={formState.totalPluses}
               />
             </div>
-            <div className="form-control">
+            <div className="form-control select">
               <label
                 htmlFor="contractDuration"
                 className="h2"
@@ -213,7 +241,7 @@ function App() {
                 ))}
               </select>
             </div>
-            <div className="form-control">
+            <div className="form-control select">
               <label htmlFor="contractType" className="h2">
                 Tipo de jornada
               </label>
@@ -226,43 +254,17 @@ function App() {
               </select>
             </div>
           </form>
-          <div className="result">
-            <div className="total-cost">
-              <label htmlFor="totalCost">Coste Total para la empresa</label>
-              <MaskedInput
-                mask={numberMask}
-                guide={false}
-                type="text"
-                name="totalCost"
-                id="totalCost"
-                value={cost}
-                disabled
-              />
-            </div>
-            <ul className="other-costs">
-              {otherCosts.map((otherCost: any) => (
-                <li className="cost-item" key={otherCost.name}>
-                  <label
-                    htmlFor={otherCost.name}
-                    onClick={() => toggleModal(otherCost.name)}
-                  >
-                    {otherCost.rate} {otherCost.name}{" "}
-                    <span className="asterisc-small">*</span>
-                  </label>
-                  <MaskedInput
-                    mask={numberMask}
-                    guide={false}
-                    type="text"
-                    name={otherCost.name}
-                    id={otherCost.name}
-                    value={otherCost.total}
-                    disabled
-                  />
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
+
+        <div className="banner-info">
+          <p className="salary-feedback">
+            <span>Si tienes dudas o sugerencias:{" "}</span>
+            <a className="etereo-link" href="mailto:dev@etereo.io">
+              Contáctanos
+            </a>
+          </p>
+        </div>
+
         <Modal
           isOpen={isCotizationBaseOpen}
           title="Salario Base"
@@ -323,7 +325,7 @@ function App() {
 De la misma manera, y al objeto de garantizar la universalidad y sostenimiento del sistema, este se podrá financiar con cuantas cotizaciones por formación profesional pudieran establecerse a otros colectivos beneficiarios en la Ley de Presupuestos Generales del Estado de cada ejercicio."
           source="http://www.mitramiss.gob.es/es/Guia/texto/guia_4/contenidos/guia_4_10_1.htm"
         ></Modal>
-      </div>
+      </section>
     </div>
   );
 }
