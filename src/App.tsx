@@ -260,7 +260,7 @@ function App() {
           <p className="salary-feedback">
             <span>Si tienes dudas o sugerencias:{" "}</span>
             <a className="etereo-link" href="mailto:dev@etereo.io">
-              Contáctanos
+              <span>Contáctanos</span> <b>?</b>
             </a>
           </p>
         </div>
