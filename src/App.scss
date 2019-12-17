@@ -7,6 +7,11 @@ $highlightColor: #0a6fb7;
   }
   .banner {
     order: 1;
+    margin: 0 32px;
+    margin-bottom: 32px;
+    &:before {
+      border-radius: 4px;
+    }
   }
   #root {
     height: auto;
@@ -30,7 +35,7 @@ $highlightColor: #0a6fb7;
 .banner {
   & + div {
     flex: 1;
-    padding: 16px;
+    padding: 0 16px;
   }
   .description {
     color: white;
