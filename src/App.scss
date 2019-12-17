@@ -1,37 +1,82 @@
 $h2Color: #5a7488;
 $highlightColor: #0a6fb7;
-header {
-  padding: 16px;
-  .description {
-    color: #666;
+
+@media (max-width: 720px) {
+  .salary-calculator {
+    flex-direction: column;
+  }
+  .banner {
+    order: 1;
+  }
+  #root {
+    height: auto;
   }
 }
 
 .salary-calculator {
-  padding: 16px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  width: 100%;
+  header {
+    .h2 {
+      color: white;
+    }
+  }
 }
 
-.h1 {
-  font-size: 28px;
-  color: $highlightColor;
-  text-transform: uppercase;
-}
-.h2 {
-  font-size: 24px;
-  color: $h2Color;
-}
-h1,
-.h2 {
-  padding: 8px 0;
-  font-weight: 600;
-}
 
-input,
-select {
-  appearance: none;
-  border: 0;
-  background-color: transparent;
-  outline: none;
+.banner {
+  & + div {
+    flex: 1;
+    padding: 16px;
+  }
+  .description {
+    color: white;
+    z-index: 9;
+    -webkit-font-smoothing: antialiased;
+  }
+ img {
+   width: 100px;
+   right: 16px;
+   top: 16px;
+   align-self: flex-end;
+   z-index: 9;
+   padding: 16px 32px;
+ }
+ .banner-info {
+   padding: 16px 32px;
+   z-index: 9;
+   color: white;
+   font-weight: bold;
+   font-size: 16px;
+   a {
+     margin: 16px 0;
+     display: inline-block;
+     background-color: white;
+     padding: 8px;
+     border-radius: 32px;
+   }
+ }
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-basis: 40%;
+  justify-content: space-between;
+  align-items: center;
+  background-image: url(./image.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  &:before {
+    content: "";
+    border-bottom-right-radius: 4px;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg,#59b9ff 0,#108ee9);
+    opacity: .8;
+  }
 }
 
 .form-control {
@@ -49,20 +94,16 @@ select {
   input,
   select {
     &.input {
-      font-size: 24px;
-      padding: 8px;
-      border: 1px solid $h2Color;
+      font-size: 20px;
+      padding: 4px;
+      border: 1px solid $highlightColor;
       background-color: #ffffff;
       border-radius: 4px;
-      color: $h2Color;
-      border-bottom: 4px solid $h2Color;
+      color: $highlightColor;
+      border-bottom: 4px solid $highlightColor;
       outline: 0;
     }
   }
-}
-
-label {
-  cursor: pointer;
 }
 
 .result {
@@ -94,7 +135,8 @@ label {
   }
 }
 
-.asterisc, .asterisc-small {
+.asterisc,
+.asterisc-small {
   font-size: 12px;
   position: relative;
   top: -10px;
@@ -113,7 +155,7 @@ label {
     border-bottom: 1px dashed white;
     margin-bottom: 16px;
     font-size: 14px;
-    span {
+    label {
       white-space: nowrap;
       max-width: 100%;
       text-overflow: ellipsis;
@@ -124,26 +166,5 @@ label {
   input {
     font-size: 14px;
     text-align: right;
-  }
-}
-
-footer {
-  background-color: $highlightColor;
-  padding: 16px;
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0px 16px;
-  border-radius: 4px;
-  a {
-    color: white;
-  }
-
-  .salary-feedback {
-    max-width: 250px;
-  }
-  img {
-    width: 100px;
   }
 }
