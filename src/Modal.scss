@@ -1,3 +1,7 @@
+$blue: #2a15b1;
+$cream: #fff;
+$yellow: #f5b535;
+
 .modal {
   position: fixed;
   width: 100%;
@@ -21,9 +25,13 @@
     max-width: 560px;
 
     h2{
-      font-size: 21px;
+      display: inline-block;
+      font-size: 24px;
       font-weight: 600;
       padding-bottom: 16px;
+      background: linear-gradient(45deg, #2a15b1, #8215b1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     p {
@@ -31,6 +39,20 @@
       line-height: 1.5em;
       color: #666;
       padding-bottom: 16px;
+    }
+
+    a {
+      background: $yellow;
+      border-radius: 4px;
+      color: #000;
+      font-size: 18px;
+      font-weight: 500;
+      display: block;
+      margin-top: 16px;
+      padding: 16px 24px;
+      text-align: center;
+      text-decoration: none;
+      width: fit-content;
     }
   }
 }

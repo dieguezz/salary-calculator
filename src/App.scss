@@ -63,7 +63,7 @@ body {
 
   .banner {
     background: $blue;
-    background: linear-gradient(-45deg, #2a15b1, #5815b1);
+    background: linear-gradient(-45deg, #2a15b1, #6315b1);
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
     padding: 80px;
@@ -262,9 +262,9 @@ body {
         line-height: 1.25;
 
         &.mobile {
+          background: linear-gradient(-45deg, #2a15b1, #8215b1);
           display: none;
           font-size: 28px;
-          background: linear-gradient(-45deg, #2a15b1, #5815b1);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
         }
@@ -283,7 +283,7 @@ body {
           }
 
           &.mobile {
-            display: block;
+            display: inline-block;
           }
         }
       }
