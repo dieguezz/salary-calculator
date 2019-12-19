@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import "./App.scss";
 import logo from "./etereo-logo.png";
 import MaskedInput from "react-text-mask";
@@ -6,7 +6,7 @@ import createNumberMask from "text-mask-addons/dist/createNumberMask";
 import axios from "axios";
 import { useEffect } from "react";
 import { Modal } from "./Modal";
-import image from "./image.jpg";
+// import image from "./image.jpg";
 
 const numberMask = createNumberMask({
   prefix: "",
@@ -63,6 +63,8 @@ function App() {
   const [isFogasaOpen, setIsFogasaOpen] = useState(false);
   const [isUnemploymentOpen, setIsUnemploymentOpen] = useState(false);
   const [isFormationOpen, setIsFormationOpen] = useState(false);
+  const [isExtraOpen, setIsExtraOpen] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   function onChangeForm(e: any) {
     e.persist();
@@ -76,11 +78,10 @@ function App() {
     e.preventDefault();
   }
 
-  function getSalary() {
+  const getSalary = useCallback(() => {
     const number = parseFloat(
       formState.baseSalary.replace(".", "").replace("€", "")
     );
-    console.log(number);
     if (isLoading || number < 400) return;
     setIsloading(true);
     fetchSalary(
@@ -89,12 +90,14 @@ function App() {
       formState.contractType === "Partial" ? 1 : 0,
       formState.totalPluses || 0
     ).then((res: any) => {
-      console.log(res.data);
       setCost(res.data.totalCost.toString().replace(".", ","));
       setOtherCosts(res.data.detailedCosts);
       setIsloading(false);
-    });
-  }
+    })
+    .catch((e: any )=> {
+      setIsError(true)
+    })
+  }, [formState.baseSalary, formState.contractDuration, formState.contractType, formState.totalPluses, isLoading])
 
   function toggleModal(name: string) {
     switch (name) {
@@ -119,6 +122,9 @@ function App() {
       case "formación prof.":
         setIsFormationOpen(true);
         break;
+      case "parte prop. pagas extra":
+        setIsExtraOpen(true);
+        break;
       default:
         throw new Error("no such type");
     }
@@ -133,48 +139,52 @@ function App() {
       <aside className="banner">
         {/*<img src={logo} className="etereo-logo" alt="etereo logo" />*/}
         <h1>Calculadora del coste de un trabajador</h1>
-        <h2>Calcula el coste que le supone a tu empresa contratar a un
-            trabajador en base a su salario bruto anual.</h2>
+        <h2>
+          Calcula el coste que le supone a tu empresa contratar a un trabajador
+          en base a su salario bruto anual.
+        </h2>
         <div className="result">
-            <div className="total-cost">
-              <label htmlFor="totalCost">Coste total para la empresa</label>
-              <MaskedInput
-                mask={numberMask}
-                guide={false}
-                type="text"
-                name="totalCost"
-                id="totalCost"
-                value={cost}
-                disabled
-              />
-            </div>
-            <ul className="other-costs">
-              {otherCosts.map((otherCost: any) => (
-                <li className="cost-item" key={otherCost.name}>
-                  <label
-                    htmlFor={otherCost.name}
-                    onClick={() => toggleModal(otherCost.name)}
-                  >
-                    {otherCost.rate} {otherCost.name}{" "}
-                    <span className="asterisc-small">*</span>
-                  </label>
-                  <MaskedInput
-                    mask={numberMask}
-                    guide={false}
-                    type="text"
-                    name={otherCost.name}
-                    id={otherCost.name}
-                    value={otherCost.total}
-                    disabled
-                  />
-                </li>
-              ))}
-            </ul>
+          <div className="total-cost">
+            <label htmlFor="totalCost">Coste total para la empresa</label>
+            <MaskedInput
+              mask={numberMask}
+              guide={false}
+              type="text"
+              name="totalCost"
+              id="totalCost"
+              value={cost}
+              disabled
+            />
           </div>
+          <ul className="other-costs">
+            {otherCosts.map((otherCost: any) => (
+              <li className="cost-item" key={otherCost.name}>
+                <label
+                  htmlFor={otherCost.name}
+                  onClick={() => toggleModal(otherCost.name)}
+                >
+                  {otherCost.rate} {otherCost.name}{" "}
+                  <span className="asterisc-small">*</span>
+                </label>
+                <MaskedInput
+                  mask={numberMask}
+                  guide={false}
+                  type="text"
+                  name={otherCost.name}
+                  id={otherCost.name}
+                  value={otherCost.total}
+                  disabled
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
       </aside>
       <section className="calculator-content">
         <header>
-          <h1 className="h1 desktop">Rellena todos los campos en base al salario bruto anual</h1>
+          <h1 className="h1 desktop">
+            Rellena todos los campos en base al salario bruto anual
+          </h1>
           <h1 className="h1 mobile">Calculadora del coste de un trabajador</h1>
         </header>
         <div className="content">
@@ -258,7 +268,7 @@ function App() {
 
         <div className="banner-info">
           <p className="salary-feedback">
-            <span>Si tienes dudas o sugerencias:{" "}</span>
+            <span>Si tienes dudas o sugerencias: </span>
             <a className="etereo-link" href="mailto:dev@etereo.io">
               <span>Contáctanos</span> <b>?</b>
             </a>
@@ -324,6 +334,12 @@ function App() {
           text="El sistema de formación profesional para el empleo en el ámbito laboral se financiará, de conformidad con lo establecido en la Ley de Presupuestos Generales del Estado, con los fondos provenientes de la cuota de formación profesional que aportan las empresas y los trabajadores, con las ayudas procedentes del Fondo Social Europeo, o de otras ayudas e iniciativas europeas, y con las aportaciones específicas establecidas en el presupuesto del Servicio Público de Empleo Estatal.
 De la misma manera, y al objeto de garantizar la universalidad y sostenimiento del sistema, este se podrá financiar con cuantas cotizaciones por formación profesional pudieran establecerse a otros colectivos beneficiarios en la Ley de Presupuestos Generales del Estado de cada ejercicio."
           source="http://www.mitramiss.gob.es/es/Guia/texto/guia_4/contenidos/guia_4_10_1.htm"
+        ></Modal>
+        <Modal
+          isOpen={isExtraOpen}
+          title="Formación profesional"
+          onClose={() => setIsExtraOpen(false)}
+          text="La parte proporcional de las pagas extra se calcula mediante la suma del salario bruto y los pluses dividida entre 12 meses"
         ></Modal>
       </section>
     </div>
